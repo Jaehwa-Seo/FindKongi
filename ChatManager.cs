@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class ChatManager : MonoBehaviour
 {
 
-    public Text ChatText; // 실제 채팅이 나오는 텍스트
+    public Text ChatText; 
+
+    public static ChatManager instance = null;
 
     enum State
     {
@@ -27,6 +29,11 @@ public class ChatManager : MonoBehaviour
     private void Start()
     {
         is_typing = false;
+
+        if(instance == null)
+        {
+            instance = this;
+        }
     }
 
 

@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class ScriptManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private IEnumerator chatCoroutine; 
 
-    // Update is called once per frame
-    void Update()
+    public void CheckScript()
     {
-        
+
     }
+    // void Start()
+    // {
+        
+    // }
+
+    // // Update is called once per frame
+    // void Update()
+    // {
+    //     if(chatCoroutine == null)
+    //     {
+    //         chatCoroutine = ChatManager.instance.NormalChat("test");
+    //         StartCoroutine(chatCoroutine);
+    //     } 
+    // }
 }
