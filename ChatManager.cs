@@ -57,7 +57,37 @@ public class ChatManager : MonoBehaviour
             yield return new WaitForSeconds(0.07f);
         }
 
+#if(UNITY_EDITOR)
         yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+#else
+        yield return new WaitUntil(() => Input.touchCount > 0);
+#endif
+        GameManager.instance.scriptText.text = "";
+
+        is_typing = false;
+        yield return null;
+
+    }
+
+    public IEnumerator DissolveChat(string narration)
+    {
+        is_typing = true;
+        int a = 0;
+        writerText = "";
+
+        state = State.Playing;
+
+        for (a = 0; a < narration.Length; a++)
+        {
+            if (state == State.PlayingSkipping)
+            {
+                GameManager.instance.scriptText.text = narration;
+                break;
+            }
+            writerText += narration[a];
+            GameManager.instance.scriptText.text = writerText;
+            yield return new WaitForSeconds(0.07f);
+        }
 
         GameManager.instance.scriptText.text = "";
 
