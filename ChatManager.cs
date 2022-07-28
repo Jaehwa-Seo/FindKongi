@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public class ChatManager : MonoBehaviour
 {
-
-    public Text ChatText; 
-
     public static ChatManager instance = null;
 
     enum State
@@ -25,15 +22,18 @@ public class ChatManager : MonoBehaviour
     void Update()
     {
     }
-
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
     private void Start()
     {
         is_typing = false;
 
-        if(instance == null)
-        {
-            instance = this;
-        }
+       
     }
 
 
@@ -49,17 +49,17 @@ public class ChatManager : MonoBehaviour
         {
             if(state==State.PlayingSkipping)
             {
-                ChatText.text = narration;
+                GameManager.instance.scriptText.text = narration;
                 break;
             }
             writerText += narration[a];
-            ChatText.text = writerText;
+            GameManager.instance.scriptText.text = writerText;
             yield return new WaitForSeconds(0.07f);
         }
 
-        yield return new WaitUntil(() => Input.touchCount > 0);
+        yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
 
-        ChatText.text = "";
+        GameManager.instance.scriptText.text = "";
 
         is_typing = false;
         yield return null;
